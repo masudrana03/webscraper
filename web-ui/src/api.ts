@@ -1,4 +1,4 @@
-const API_BASE = '';
+const API_BASE = '/api';
 
 export async function scrapeSync(url: string, mode = 'auto', format = 'json', extract?: string[]) {
   const res = await fetch(`${API_BASE}/scrape/sync`, {
@@ -60,3 +60,21 @@ export async function getScheduleResults(jobId: string) {
   const res = await fetch(`${API_BASE}/schedule/${jobId}/results`);
   return res.json();
 }
+
+export type JobItem = {
+  job_id: string;
+  url: string;
+  status: string;
+  created_at: string;
+  result?: Record<string, unknown> | null;
+  file?: string | null;
+  error?: string | null;
+  completed_at?: string | null;
+};
+
+export type ScheduleItem = {
+  job_id: string;
+  url: string;
+  schedule: string;
+  status: string;
+};
